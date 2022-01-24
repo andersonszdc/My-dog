@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import facebookLogo from "../../assets/facebook.svg";
 import googleLogo from "../../assets/google.svg";
+import { motion } from "framer-motion";
 
 type SocialButtonProps = {
   midia: string;
@@ -34,7 +35,7 @@ const SocialButton = ({ midia }: SocialButtonProps) => {
   );
 };
 
-const Wrapper = styled.section`
+const Wrapper = styled(motion.section)`
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -101,9 +102,22 @@ const Wrapper = styled.section`
   }
 `;
 
+const variants = {
+  hidden: { opacity: 0, x: -200, y: 0 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: 0, y: -100 },
+};
+
 const Login = () => {
   return (
-    <Wrapper>
+    <Wrapper
+      key="login"
+      variants={variants}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      transition={{ type: "linear" }}
+    >
       <h1 className="title">Login</h1>
       <h2 className="subtitle">Sign with your credentials</h2>
       <div className="socialButtons">
@@ -124,7 +138,7 @@ const Login = () => {
         </Link>
         <input className="formCredential__action" type="submit" value="Login" />
       </form>
-      <Link href="#">
+      <Link href="/signUp">
         <a className="signUp">Don’t have an account? Sign up</a>
       </Link>
     </Wrapper>
