@@ -1,5 +1,12 @@
+import Login from "../components/login";
+import LoginLayout from "../components/loginLayout";
+
 export default function Home() {
   return (
-    <div>initial</div>
-  )
+    <>
+      <Login />
+    </>
+  );
 }
+
+Home.layout = LoginLayout;
