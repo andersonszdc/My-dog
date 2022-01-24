@@ -1,7 +1,9 @@
 import { NextPage } from "next";
 import { AppProps } from "next/app";
 import { ComponentType, Fragment } from "react";
-import GlobalStyle from "../../styles/global";
+import { ThemeProvider } from "styled-components";
+import GlobalStyle from "../styles/global";
+import theme from "../styles/theme";
 
 type PageProps = NextPage & {
   layout?: ComponentType;
@@ -15,10 +17,12 @@ function MyApp({ Component, pageProps }: MyAppProps) {
   const CustomLayout = Component.layout ? Component.layout : Fragment;
   return (
     <>
-      <GlobalStyle />
-      <CustomLayout>
-        <Component {...pageProps} />
-      </CustomLayout>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <CustomLayout>
+          <Component {...pageProps} />
+        </CustomLayout>
+      </ThemeProvider>
     </>
   );
 }
