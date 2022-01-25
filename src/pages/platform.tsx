@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Feed from "../components/feed";
 
 const variants = {
   hidden: { opacity: 0, x: -200 },
@@ -33,6 +34,7 @@ const Index = () => {
         Home
       </motion.div>
       <button onClick={() => signOut(auth)}>Sign out</button>
+      <Feed />
     </>
   );
 };

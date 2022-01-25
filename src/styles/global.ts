@@ -10,6 +10,7 @@ export default createGlobalStyle`
 
     body {
         font-family: 'Rubik', sans-serif;
+        background-color: #F5F5F5;
     }
 
     a {
