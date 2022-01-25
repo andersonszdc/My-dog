@@ -5,6 +5,7 @@ import Image from "next/image";
 import facebookLogo from "../../assets/facebook.svg";
 import googleLogo from "../../assets/google.svg";
 import { motion } from "framer-motion";
+import { signIn } from "next-auth/react";
 
 type SocialButtonProps = {
   midia: string;
@@ -28,7 +29,7 @@ const SocialButtonStyled = styled.button`
 const SocialButton = ({ midia }: SocialButtonProps) => {
   const srcLogo = midia == "Facebook" ? facebookLogo : googleLogo;
   return (
-    <SocialButtonStyled>
+    <SocialButtonStyled onClick={() => signIn()}>
       <Image alt="icon" src={srcLogo} />
       Sign in with {midia}
     </SocialButtonStyled>
