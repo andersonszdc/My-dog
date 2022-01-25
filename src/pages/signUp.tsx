@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginLayout from "../components/loginLayout";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import { Wrapper } from "../components/login";
 
 const variants = {
   hidden: { opacity: 0, x: -200 },
@@ -10,17 +14,71 @@ const variants = {
 };
 
 const Index = () => {
+  const auth = getAuth();
+  const router = useRouter();
+  const [{ email, password }, setCredential] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setCredential((s) => ({ ...s, [name]: value }));
+  };
+
+  const createUser = (e: any) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        router.push("/platform");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
   return (
-    <motion.div
+    <Wrapper
       variants={variants}
       initial="hidden"
       animate="enter"
       exit="exit"
       transition={{ type: "linear" }}
     >
-      <h1>Sign up</h1>
-      <Link href="/">Retornar</Link>
-    </motion.div>
+      <h1 className="title">Sign up</h1>
+      <h2 className="subtitle">Create your account</h2>
+      <form className="formCredential" onSubmit={createUser}>
+        <label className="formCredential__label">
+          au-mail
+          <input
+            type="text"
+            placeholder="dog@gmail.com"
+            value={email}
+            name="email"
+            onChange={handleChange}
+          />
+        </label>
+        <label className="formCredential__label">
+          password
+          <input
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            name="password"
+            onChange={handleChange}
+          />
+        </label>
+        <input
+          className="formCredential__action"
+          type="submit"
+          value="Sign up"
+        />
+      </form>
+      <Link href="/">Already have an account? Sign in</Link>
+    </Wrapper>
   );
 };
 

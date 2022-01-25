@@ -56,7 +56,7 @@ const SocialButton = ({ midia }: SocialButtonProps) => {
   );
 };
 
-const Wrapper = styled(motion.section)`
+export const Wrapper = styled(motion.section)`
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -137,17 +137,16 @@ const Login = () => {
     password: "",
   });
 
-  const createUser = (e: React.FormEvent<HTMLFormElement>) => {
+  const signInWithPassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+      .then(() => {
         router.push("/platform");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
+        console.log(errorCode, errorMessage);
       });
   };
 
@@ -170,7 +169,7 @@ const Login = () => {
         <SocialButton midia="Google" />
         <SocialButton midia="Facebook" />
       </div>
-      <form className="formCredential" onSubmit={createUser}>
+      <form className="formCredential" onSubmit={signInWithPassword}>
         <label className="formCredential__label">
           au-mail
           <input
