@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import Image from "next/image";
 import facebookLogo from "../../assets/facebook.svg";
 import googleLogo from "../../assets/google.svg";
 import { motion } from "framer-motion";
-import { signIn } from "next-auth/react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/router";
 
 type SocialButtonProps = {
   midia: string;
@@ -29,7 +30,7 @@ const SocialButtonStyled = styled.button`
 const SocialButton = ({ midia }: SocialButtonProps) => {
   const srcLogo = midia == "Facebook" ? facebookLogo : googleLogo;
   return (
-    <SocialButtonStyled onClick={() => signIn()}>
+    <SocialButtonStyled>
       <Image alt="icon" src={srcLogo} />
       Sign in with {midia}
     </SocialButtonStyled>
@@ -110,6 +111,32 @@ const variants = {
 };
 
 const Login = () => {
+  const auth = getAuth();
+  const router = useRouter();
+  const [{ email, password }, setCredential] = useState({
+    email: "",
+    password: "",
+  });
+
+  const createUser = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        router.push("/platform");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setCredential((s) => ({ ...s, [name]: value }));
+  };
+
   return (
     <Wrapper
       variants={variants}
@@ -124,16 +151,28 @@ const Login = () => {
         <SocialButton midia="Google" />
         <SocialButton midia="Facebook" />
       </div>
-      <form className="formCredential">
+      <form className="formCredential" onSubmit={createUser}>
         <label className="formCredential__label">
           au-mail
-          <input type="text" placeholder="dog@gmail.com" />
+          <input
+            type="text"
+            placeholder="dog@gmail.com"
+            value={email}
+            name="email"
+            onChange={handleChange}
+          />
         </label>
         <label className="formCredential__label">
           password
-          <input type="password" placeholder="••••••••" />
+          <input
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            name="password"
+            onChange={handleChange}
+          />
         </label>
-        <Link href="#">
+        <Link href="/forget">
           <a className="formCredential__forget">Forgot password?</a>
         </Link>
         <input className="formCredential__action" type="submit" value="Login" />

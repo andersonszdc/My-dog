@@ -5,7 +5,7 @@ import { ComponentType, Fragment } from "react";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../styles/global";
 import theme from "../styles/theme";
-import { SessionProvider } from "next-auth/react";
+import "../utils/firebaseConfig";
 
 type PageProps = NextPage & {
   layout?: ComponentType;
@@ -25,16 +25,14 @@ function MyApp({
   const CustomLayout = Component.layout ? Component.layout : Fragment;
 
   return (
-    <SessionProvider session={session}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <CustomLayout>
-          <AnimatePresence exitBeforeEnter>
-            <Component {...pageProps} key={url} />
-          </AnimatePresence>
-        </CustomLayout>
-      </ThemeProvider>
-    </SessionProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <CustomLayout>
+        <AnimatePresence exitBeforeEnter>
+          <Component {...pageProps} key={url} />
+        </AnimatePresence>
+      </CustomLayout>
+    </ThemeProvider>
   );
 }
 
