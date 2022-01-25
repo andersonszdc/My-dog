@@ -5,8 +5,17 @@ import Image from "next/image";
 import facebookLogo from "../../assets/facebook.svg";
 import googleLogo from "../../assets/google.svg";
 import { motion } from "framer-motion";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { useRouter } from "next/router";
+
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 type SocialButtonProps = {
   midia: string;
@@ -28,9 +37,19 @@ const SocialButtonStyled = styled.button`
 `;
 
 const SocialButton = ({ midia }: SocialButtonProps) => {
+  const auth = getAuth();
+  const router = useRouter();
   const srcLogo = midia == "Facebook" ? facebookLogo : googleLogo;
+  const provider = midia == "Facebook" ? facebookProvider : googleProvider;
+
+  const signIn = () => {
+    signInWithPopup(auth, provider).then(() => {
+      router.push("platform");
+    });
+  };
+
   return (
-    <SocialButtonStyled>
+    <SocialButtonStyled onClick={signIn}>
       <Image alt="icon" src={srcLogo} />
       Sign in with {midia}
     </SocialButtonStyled>
