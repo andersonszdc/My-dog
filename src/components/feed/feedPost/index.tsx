@@ -7,6 +7,7 @@ import plane from "../../../assets/plane.svg";
 import chat from "../../../assets/chat.svg";
 import smile from "../../../assets/smile.svg";
 import styled from "styled-components";
+import { getPostTime } from "../../../services/getPostTime";
 
 const Wrapper = styled.div`
   display: flex;
@@ -51,13 +52,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const FeedPost = () => {
+const FeedPost = ({data}: any) => {
   return (
     <Wrapper>
       <div className="header">
         <Image src={perfil} alt="user_image" />
-        <p>name</p>
-        <p>1min</p>
+        <p>{data.name}</p>
+        <p>{getPostTime(data.data.seconds)}</p>
       </div>
       <Image src={post} alt="post_image" />
       <div className="interaction">
@@ -67,7 +68,7 @@ const FeedPost = () => {
           <Image className="icons__item" src={plane} alt="plane_icon" />
         </div>
         <div>
-          <p>name Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>{data.name} {data.caption}</p>
         </div>
         <span>View all 30 comments</span>
       </div>
