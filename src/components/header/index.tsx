@@ -1,10 +1,12 @@
 import { getAuth, signOut } from "firebase/auth";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import house from "../../assets/house.svg";
 import plus from "../../assets/plus.svg";
+import Portal from "../../HOC/Portal";
+import CreatePost from "../createPost";
 
 const variants = {
   hidden: { opacity: 0, x: -200 },
@@ -56,6 +58,7 @@ const Wrapper = styled(motion.div)`
 
 const Header = () => {
   const auth = getAuth();
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <>
@@ -75,11 +78,22 @@ const Header = () => {
           />
           <div className="content__icons">
             <Image className="icons__item" src={house} alt="house_icon" />
-            <Image className="icons__item" src={plus} alt="plus_icon" />
+            <Image
+              className="icons__item"
+              onClick={() => setOpenModal(true)}
+              src={plus}
+              alt="plus_icon"
+            />
             <button onClick={() => signOut(auth)}>Sign out</button>
           </div>
         </div>
       </Wrapper>
+
+      {openModal && (
+        <Portal modal="createPost">
+          <CreatePost />
+        </Portal>
+      )}
     </>
   );
 };
