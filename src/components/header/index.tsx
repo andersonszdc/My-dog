@@ -91,7 +91,7 @@ const Header = () => {
 
       {openModal && (
         <Portal modal="createPost">
-          <CreatePost />
+          <CreatePost setOpenModal={setOpenModal} />
         </Portal>
       )}
     </>
