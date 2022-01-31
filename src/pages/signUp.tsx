@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import LoginLayout from "../components/loginLayout";
-import { motion } from "framer-motion";
+import LoginLayout from "../components/login/loginLayout";
 import Link from "next/link";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
-import styled from "styled-components";
 import { Wrapper } from "../components/login";
 
 const variants = {
