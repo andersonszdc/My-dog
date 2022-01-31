@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import house from "../../assets/house.svg";
-import plus from "../../assets/plus.svg";
 import Portal from "../../HOC/Portal";
 import CreatePost from "../createPost";
 
@@ -77,11 +75,19 @@ const Header = () => {
             placeholder="Pesquisar"
           />
           <div className="content__icons">
-            <Image className="icons__item" src={house} alt="house_icon" />
             <Image
+              height={24}
+              width={24}
+              className="icons__item"
+              src="/assets/house.svg"
+              alt="house_icon"
+            />
+            <Image
+              height={24}
+              width={24}
               className="icons__item"
               onClick={() => setOpenModal(true)}
-              src={plus}
+              src="/assets/plus.svg"
               alt="plus_icon"
             />
             <button onClick={() => signOut(auth)}>Sign out</button>

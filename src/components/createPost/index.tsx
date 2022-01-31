@@ -39,14 +39,14 @@ const CreatePost = ({ setOpenModal }: CreatePostProps) => {
     <Background onClick={clickOut}>
       <Wrapper ref={WrapperRef}>
         <h1>Criar nova publicação</h1>
-        <Image width={75} height={75} src="/image.svg" alt="" />
+        <Image width={75} height={75} src="/assets/image.svg" alt="" />
         <p>Arraste a foto aqui</p>
         <button>Selecionar do computador</button>
         <Image
           onClick={() => setOpenModal(false)}
           width={32}
           height={32}
-          src="/close.svg"
+          src="/assets/close.svg"
           alt=""
         />
       </Wrapper>

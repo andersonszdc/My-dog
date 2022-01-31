@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import dog from "../../assets/dog.jpg";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -11,18 +10,25 @@ const Wrapper = styled.div`
   .wrapper__image {
     position: relative;
   }
-  
+
   .image {
     object-fit: cover;
   }
-`
+`;
 
 const LoginLayout: React.FC = ({ children }) => {
   return (
     <Wrapper>
       {children}
       <div className="wrapper__image">
-        <Image className="image" layout="fill" objectPosition="50% 100%" objectFit="cover" alt="login-image" src={dog} />
+        <Image
+          className="image"
+          layout="fill"
+          objectPosition="50% 100%"
+          objectFit="cover"
+          alt="login-image"
+          src="/assets/dog.jpg"
+        />
       </div>
     </Wrapper>
   );

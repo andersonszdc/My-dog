@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import perfil from "../../../assets/perfil.jpg";
-import heart from "../../../assets/heart.svg";
-import plane from "../../../assets/plane.svg";
-import chat from "../../../assets/chat.svg";
-import smile from "../../../assets/smile.svg";
 import styled from "styled-components";
 import { getPostTime } from "../../../services/getPostTime";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -88,7 +83,12 @@ const FeedPost = ({ data }: any) => {
   return url ? (
     <Wrapper>
       <div className="header">
-        <Image src={perfil} alt="user_image" />
+        <Image
+          height={24}
+          width={24}
+          src="/assets/perfil.jpg"
+          alt="user_image"
+        />
         <p>{data.name}</p>
         <p>{getPostTime(data.data.seconds)}</p>
       </div>
@@ -104,9 +104,27 @@ const FeedPost = ({ data }: any) => {
       </div>
       <div className="interaction">
         <div className="interaction__icons">
-          <Image className="icons__item" src={heart} alt="heart_icon" />
-          <Image className="icons__item" src={chat} alt="chat_icon" />
-          <Image className="icons__item" src={plane} alt="plane_icon" />
+          <Image
+            height={24}
+            width={24}
+            className="icons__item"
+            src="/assets/heart.svg"
+            alt="heart_icon"
+          />
+          <Image
+            height={24}
+            width={24}
+            className="icons__item"
+            src="/assets/chat.svg"
+            alt="chat_icon"
+          />
+          <Image
+            height={24}
+            width={24}
+            className="icons__item"
+            src="/assets/plane.svg"
+            alt="plane_icon"
+          />
         </div>
         <p>
           <span className="interaction__username">{data.name}</span>{" "}
@@ -115,7 +133,12 @@ const FeedPost = ({ data }: any) => {
         <span>View all 30 comments</span>
       </div>
       <div className="comment">
-        <Image src={smile} alt="plane_icon" />
+        <Image
+          height={24}
+          width={24}
+          src="/assets/smile.svg"
+          alt="smile_icon"
+        />
         <input
           className="comment__input"
           type="text"

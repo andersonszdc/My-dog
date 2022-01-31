@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import Image from "next/image";
-import facebookLogo from "../../assets/facebook.svg";
-import googleLogo from "../../assets/google.svg";
 import { motion } from "framer-motion";
 import {
   getAuth,
@@ -39,7 +37,7 @@ const SocialButtonStyled = styled.button`
 const SocialButton = ({ midia }: SocialButtonProps) => {
   const auth = getAuth();
   const router = useRouter();
-  const srcLogo = midia == "Facebook" ? facebookLogo : googleLogo;
+  const srcLogo = midia == "Facebook" ? "facebook" : "google";
   const provider = midia == "Facebook" ? facebookProvider : googleProvider;
 
   const signIn = () => {
@@ -50,7 +48,7 @@ const SocialButton = ({ midia }: SocialButtonProps) => {
 
   return (
     <SocialButtonStyled onClick={signIn}>
-      <Image alt="icon" src={srcLogo} />
+      <Image height={24} width={24} alt="icon" src={`/assets/${srcLogo}.svg`} />
       Sign in with {midia}
     </SocialButtonStyled>
   );
