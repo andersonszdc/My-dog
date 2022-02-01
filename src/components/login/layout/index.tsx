@@ -1,22 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import styled from "styled-components";
+import { Wrapper } from "./styles";
 
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 100vh;
-
-  .wrapper__image {
-    position: relative;
-  }
-
-  .image {
-    object-fit: cover;
-  }
-`;
-
-const LoginLayout: React.FC = ({ children }) => {
+const Layout: React.FC = ({ children }) => {
   return (
     <Wrapper>
       {children}
@@ -34,4 +20,4 @@ const LoginLayout: React.FC = ({ children }) => {
   );
 };
 
-export default LoginLayout;
+export default Layout;

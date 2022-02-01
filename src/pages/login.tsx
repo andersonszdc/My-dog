@@ -2,7 +2,7 @@ import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Login from "../components/login";
-import LoginLayout from "../components/login/loginLayout";
+import LoginLayout from "../components/login/layout";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Home() {

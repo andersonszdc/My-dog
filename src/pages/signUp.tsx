@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import LoginLayout from "../components/login/loginLayout";
+import LoginLayout from "../components/login/layout";
 import Link from "next/link";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
-import { Wrapper } from "../components/login";
+import { Wrapper } from "../components/login/styles";
 
 const variants = {
   hidden: { opacity: 0, x: -200 },
@@ -29,7 +29,7 @@ const Index = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        router.push("/platform");
+        router.push("/");
       })
       .catch((error) => {
         const errorCode = error.code;
