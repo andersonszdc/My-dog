@@ -5,7 +5,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { setUser } from "../../services/setUser";
 import { SocialButtonStyled } from "./styles";
 
 const googleProvider = new GoogleAuthProvider();
@@ -17,13 +17,13 @@ type SocialButtonProps = {
 
 const SocialButton = ({ midia }: SocialButtonProps) => {
   const auth = getAuth();
-  const router = useRouter();
   const srcLogo = midia == "Facebook" ? "facebook" : "google";
   const provider = midia == "Facebook" ? facebookProvider : googleProvider;
 
   const signIn = () => {
-    signInWithPopup(auth, provider).then(() => {
-      router.push("/");
+    signInWithPopup(auth, provider).then((res) => {
+      const { user } = res;
+      setUser({ user });
     });
   };
 

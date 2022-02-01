@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { useRouter } from "next/router";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import LoginLayout from "./layout";
 import { Wrapper } from "./styles";
 import SocialButton from "../socialButton";
@@ -17,7 +13,6 @@ const variants = {
 
 const Login = () => {
   const auth = getAuth();
-  const router = useRouter();
   const [{ email, password }, setCredential] = useState({
     email: "",
     password: "",
@@ -25,15 +20,10 @@ const Login = () => {
 
   const signInWithPassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        router.push("/");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      const { code, message } = error;
+      console.log(code, message);
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
