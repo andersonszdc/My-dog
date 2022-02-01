@@ -38,7 +38,7 @@ const Wrapper = styled(motion.div)`
     border: none;
     padding: 8px;
     border-radius: 8px;
-    background: url(/magnifier.svg) #f1f1f1 no-repeat scroll 6px 50%;
+    background: url(/assets/magnifier.svg) #f1f1f1 no-repeat scroll 6px 50%;
     padding-left: 36px;
     height: 40px;
   }
