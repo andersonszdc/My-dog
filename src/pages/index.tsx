@@ -1,22 +1,28 @@
-import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import Login from "../components/login";
-import LoginLayout from "../components/login/loginLayout";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Feed from "../components/feed";
+import Header from "../components/header";
 
-export default function Home() {
+const Index = () => {
   const router = useRouter();
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
-    if (user) {
-      router.push("/platform");
+    if (!user) {
+      router.push("/login");
     }
   }, [user, router]);
 
-  return <Login />;
-}
+  return (
+    <>
+      <Header />
+      <Feed />
+    </>
+  );
+};
 
-Home.layout = LoginLayout;
+export default Index;

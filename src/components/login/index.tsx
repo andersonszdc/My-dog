@@ -11,6 +11,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useRouter } from "next/router";
+import LoginLayout from "./loginLayout";
 
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
@@ -139,7 +140,7 @@ const Login = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        router.push("/platform");
+        router.push("/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -199,5 +200,7 @@ const Login = () => {
     </Wrapper>
   );
 };
+
+Login.layout = LoginLayout;
 
 export default Login;

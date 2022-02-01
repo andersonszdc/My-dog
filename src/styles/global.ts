@@ -18,7 +18,7 @@ export default createGlobalStyle`
         color: inherit;
     }
 
-    button, input {
+    button, input, textarea {
         font-family: 'Rubik', sans-serif;
     }
 `;
